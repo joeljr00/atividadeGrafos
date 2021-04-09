@@ -1,52 +1,74 @@
 
 package questao4;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import grafonaodirecionado.ArestasND;
+import grafonaodirecionado.GrafoND;
+import grafonaodirecionado.VerticeND;
 import java.util.ArrayList;
-import tadgrafo.TadGrafo;
-import tadgrafo.Vertices;
+import java.util.Collections;
+import tadgrafo.Cor;
 
 
-public class QuestaoQuatro {
 
+public class QuestaoQuatro<TIPO> extends GrafoND {
     
-    public static void main(String[] args) {
-       TadGrafo<String> grafo = new TadGrafo<String>();
-       
-       String path = "vertices.txt";
-        try ( BufferedReader br = new BufferedReader(new FileReader(path))) {
+ 
+ ArrayList<VerticeND<TIPO>> coloridos = new ArrayList<VerticeND<TIPO>>();
+ private ArrayList<VerticeND<TIPO>> vertices;
+ 
+    public void nroCromatico(TIPO dado) {
+        ArrayList<VerticeND<TIPO>> tVertices = new ArrayList();
+        tVertices.addAll(tDsVertices());
+        Cor cor = new Cor();
+        ArrayList<Integer> cores = new ArrayList();
+        cores.addAll(cor.todasCores());
+        ArrayList<Integer> coraux = new ArrayList();
+        VerticeND<TIPO> atual = getVertices(dado);
+        VerticeND<TIPO> prox = atual;
 
-            String line = new String();
-            line = br.readLine();
-            while (line != null) {
-                grafo.addVertices(line);
+        while (coloridos.size() != 12) {
+            for (ArestasND ares : atual.getArestas()) {
 
-                line = br.readLine();
+                if (coloridos.contains(ares.getVerticeB())) {
+                    coraux.add(ares.getVerticeB().getCor());
+                } else {
+                    prox = ares.getVerticeB();
+                }
+                if (coloridos.contains(ares.getVerticeA())) {
+                    coraux.add(ares.getVerticeA().getCor());
+                } else if (ares.getVerticeA() != atual) {
+                    prox = ares.getVerticeA();
+                }
+                if (coloridos.contains(ares.getVerticeB()) && coloridos.contains(ares.getVerticeA())) {
+                   for(int i=0;i<coloridos.size();i++){
+                   if(!coloridos.contains(tVertices.get(i))){
+                       nroCromatico(tVertices.get(i).getDado());
+                   }
+                   }
+                 }
             }
+            if (coraux.isEmpty()) {
+                atual.setCor(cor.getC1());
+                coloridos.add(atual);
+                System.out.println(atual.getDado() + " Cor " + atual.getCor());
+            } else {
+                Collections.sort(coraux);
+                for (int i = 0; i <= coraux.size() + 1; i++) {
+                    if (!coraux.contains(cores.get(i))) {
+                        atual.setCor(cores.get(i));
+                        break;
+                    }
 
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+                }
+                if (!coloridos.contains(atual)) {
+                    coloridos.add(atual);
+                    System.out.println(atual.getDado() + " Cor " + atual.getCor());
+                    coraux.clear();
+                }
+            }
+            nroCromatico(prox.getDado());
         }
 
-        path = "arestas.txt";
-        try ( BufferedReader br = new BufferedReader(new FileReader(path))) {
-
-            String line = new String();
-            line = br.readLine();
-            while (line != null) {
-                String[] vect = line.split(";");
-                grafo.addAresta(0.0, vect[0], vect[1]);
-
-                line = br.readLine();
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-       grafo.biParticao(0);
-       
     }
     
 }

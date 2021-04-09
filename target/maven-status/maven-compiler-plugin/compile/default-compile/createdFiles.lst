@@ -1,6 +1,11 @@
+grafonaodirecionado\ArestasND.class
 TrabalhoGrafo.class
 tadgrafo\Cor.class
+grafonaodirecionado\VerticeND.class
+grafonaodirecionado\GrafoND.class
 questao1\QuestaoUm.class
+questao5\Dijkstra.class
+questao5\QuestaoCinco.class
 tadgrafo\TadGrafo.class
 tadgrafo\Arestas.class
 tadgrafo\Vertices.class
