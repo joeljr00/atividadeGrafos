@@ -86,10 +86,10 @@ public class TrabalhoGrafo {
         q5.menorCaminho();
 
         System.out.println("\n\n--SEXTA QUESTÃO (ALGORITMO PRIM)--------------");
-        q6.geraMinimoPim(grafoND, grafoND.getVertices().get(0));
+        q6.geraMinimoPim(grafoND.getVertices().get(0));
 
         System.out.println("\n\n--SEXTA QUESTÃO (ALGORITMO KRUSKAL)--------------");
-        q6.geraMinimoKruskal(grafoND, grafoND.getVertices().get(0));
+        q6.geraMinimoKruskal(grafoND.getVertices().get(0));
     }
 
 }

@@ -4,9 +4,13 @@ import grafonaodirecionado.ArestasND;
 import grafonaodirecionado.GrafoND;
 import grafonaodirecionado.VerticeND;
 
+import java.util.ArrayList;
+
 public class QuestaoSeis<TIPO> extends GrafoND {
-    public void geraMinimoPim(GrafoND<TIPO> grafo, VerticeND verticeInicial) {
-        VerticeND<TIPO>[] paiVertices = new VerticeND[grafo.getVertices().size()];
+    ArrayList<VerticeND<TIPO>> vertices = getVertices();
+
+    public void geraMinimoPim(VerticeND verticeInicial) {
+        VerticeND<TIPO>[] paiVertices = new VerticeND[vertices.size()];
         VerticeND<TIPO> verticeOrigem = null;
         VerticeND<TIPO> verticeDest = null;
         double menorPeso = 0.0;
@@ -19,15 +23,15 @@ public class QuestaoSeis<TIPO> extends GrafoND {
         while (true) {
             boolean primeiraIteracao = true;
 
-            for (int i = 0; i < grafo.getVertices().size(); i++) {
+            for (int i = 0; i < vertices.size(); i++) {
                 if (paiVertices[i] != null) {
-                    VerticeND<TIPO>verticeVisitado = grafo.getVertices().get(i);
+                    VerticeND<TIPO>verticeVisitado = vertices.get(i);
 
                     for (int j = 0; j < verticeVisitado.getArestas().size(); j++) {
                         ArestasND<TIPO> arestasVisitado = verticeVisitado.getArestas().get(j);
 
-                        for (int c = 0; c < grafo.getVertices().size(); c++) {
-                            if (grafo.getVertices().get(c).equals(arestasVisitado.getVerticeB())) {
+                        for (int c = 0; c < vertices.size(); c++) {
+                            if (vertices.get(c).equals(arestasVisitado.getVerticeB())) {
                                 if (paiVertices[c] == null) {
                                     if (primeiraIteracao) {
                                         menorPeso = arestasVisitado.getPeso();
@@ -51,8 +55,8 @@ public class QuestaoSeis<TIPO> extends GrafoND {
                 break;
             }
 
-            for (int k = 0; k < grafo.getVertices().size(); k++) {
-                if (grafo.getVertices().get(k).equals(verticeDest)) {
+            for (int k = 0; k < vertices.size(); k++) {
+                if (vertices.get(k).equals(verticeDest)) {
                     paiVertices[k] = verticeOrigem;
                 }
             }
@@ -63,20 +67,20 @@ public class QuestaoSeis<TIPO> extends GrafoND {
                 System.out.println("Começando pelo vertice: " + paiVertices[i].getDado());
                 continue;
             }
-            System.out.println("Nó pai: " + paiVertices[i].getDado() + " -> Nó Filho: " + grafo.getVertices().get(i).getDado());
+            System.out.println("Nó pai: " + paiVertices[i].getDado() + " -> Nó Filho: " + vertices.get(i).getDado());
         }
 
     }
 
-    public void geraMinimoKruskal(GrafoND<TIPO> grafo, VerticeND verticeInicial){
-        VerticeND<TIPO>[] paiVertices = new VerticeND[grafo.getVertices().size()];
-        VerticeND<TIPO>[] arvoreAuxiliar = new VerticeND[grafo.getVertices().size()];
+    public void geraMinimoKruskal(VerticeND verticeInicial){
+        VerticeND<TIPO>[] paiVertices = new VerticeND[vertices.size()];
+        VerticeND<TIPO>[] arvoreAuxiliar = new VerticeND[vertices.size()];
         VerticeND<TIPO> verticeOrigem = null;
         VerticeND<TIPO> verticeDest = null;
         double menorPeso = 0.0;
 
         for (int i = 0; i < paiVertices.length; i++) {
-            arvoreAuxiliar[i] = grafo.getVertices().get(i);
+            arvoreAuxiliar[i] = vertices.get(i);
             paiVertices[i] = null;
         }
         paiVertices[0] = verticeInicial;
@@ -84,15 +88,15 @@ public class QuestaoSeis<TIPO> extends GrafoND {
         while (true) {
             boolean primeiraIteracao = true;
 
-            for (int i = 0; i < grafo.getVertices().size(); i++) {
+            for (int i = 0; i < vertices.size(); i++) {
                 if (paiVertices[i] != null) {
-                    VerticeND<TIPO>verticeVisitado = grafo.getVertices().get(i);
+                    VerticeND<TIPO>verticeVisitado = vertices.get(i);
 
                     for (int j = 0; j < verticeVisitado.getArestas().size(); j++) {
                         ArestasND<TIPO> arestasVisitado = verticeVisitado.getArestas().get(j);
 
-                        for (int c = 0; c < grafo.getVertices().size(); c++) {
-                            if (grafo.getVertices().get(c).equals(arestasVisitado.getVerticeB())) {
+                        for (int c = 0; c < vertices.size(); c++) {
+                            if (vertices.get(c).equals(arestasVisitado.getVerticeB())) {
                                 if (paiVertices[c] == null) {
                                     if (primeiraIteracao) {
                                         menorPeso = arestasVisitado.getPeso();
@@ -116,13 +120,13 @@ public class QuestaoSeis<TIPO> extends GrafoND {
                 break;
             }
 
-            for(int k = 0; k < grafo.getVertices().size(); k ++){
-                if (grafo.getVertices().get(k).equals(verticeDest)) {
+            for(int k = 0; k < vertices.size(); k ++){
+                if (vertices.get(k).equals(verticeDest)) {
                     if(paiVertices[k] == null){
                         paiVertices[k] = verticeOrigem;
                     } else {
-                        for(int l = 0; l < grafo.getVertices().size(); l ++){
-                            if(grafo.getVertices().get(l).equals(verticeOrigem)){
+                        for(int l = 0; l < vertices.size(); l ++){
+                            if(vertices.get(l).equals(verticeOrigem)){
                                 paiVertices[l] = verticeDest;
                             }
                         }
@@ -130,12 +134,12 @@ public class QuestaoSeis<TIPO> extends GrafoND {
                 }
             }
 
-            for(int i = 0; i < grafo.getVertices().size(); i++){
-                for(int k = 0; k < grafo.getVertices().size(); k++){
-                    if(grafo.getVertices().get(k).equals(verticeDest)){
+            for(int i = 0; i < vertices.size(); i++){
+                for(int k = 0; k < vertices.size(); k++){
+                    if(vertices.get(k).equals(verticeDest)){
                         if(arvoreAuxiliar[i] == arvoreAuxiliar[k]){
-                            for(int c = 0; c < grafo.getVertices().size(); c ++){
-                                if(grafo.getVertices().get(c).equals(verticeOrigem)){
+                            for(int c = 0; c < vertices.size(); c ++){
+                                if(vertices.get(c).equals(verticeOrigem)){
                                     arvoreAuxiliar[i] = arvoreAuxiliar[c];
                                 }
                             }
@@ -149,7 +153,7 @@ public class QuestaoSeis<TIPO> extends GrafoND {
                 System.out.println("Começando pelo vertice: " + paiVertices[i].getDado());
                 continue;
             }
-            System.out.println("Nó pai: " + paiVertices[i].getDado() + " -> Nó Filho: " + grafo.getVertices().get(i).getDado());
+            System.out.println("Nó pai: " + paiVertices[i].getDado() + " -> Nó Filho: " + vertices.get(i).getDado());
         }
     }
 }
