@@ -61,22 +61,24 @@ public class TrabalhoGrafo {
             System.out.println("Error: " + e.getMessage());
         }
 
-        System.out.println("\n\n------------------------------");
+        System.out.println("\n\n-PRIMEIRA QUESTÃO A--------------");
         vTS.addAll(grafoND.buscaProfundidade(0));//visita começa pelo primeiro vertice;
         System.out.println(vTS.toString());
-        System.out.println("\n\n------------------------------");
+        System.out.println("\n\n--PRIMEIRA QUESTÃO B--------------");
         grafoND.buscaLargura(0);//visita começa pelo primeiro vertice;
-        System.out.println("\n\n------------------------------");
+        
+        System.out.println("\n\n--QUERTA QUESTÃO--------------");
         
       
       if(q4.nroCromatico(1)>2){
-          JOptionPane.showMessageDialog(null,"O número de cores necessárias para pintar todos os vertices é maior que 2 " 
+          System.out.println("O número de cores necessárias para pintar todos os vertices é maior que 2 " 
                   +"\nlogo o grafo não é bipartido");
       }
       else
-          JOptionPane.showMessageDialog(null,"o número de cores necessárias para pintar " 
+            System.out.println("o número de cores necessárias para pintar " 
           +"\n" +"é menor que dois logo o grafo é bipartido");
-        System.out.println("\n\n------------------------------");
+      
+        System.out.println("\n\n--QUINTA QUESTÃO--------------");
         q5.menorCaminho();
     }
 
