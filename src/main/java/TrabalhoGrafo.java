@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import questao4.QuestaoQuatro;
 import questao5.QuestaoCinco;
+import questao6.QuestaoSeis;
 import tadgrafo.TadGrafo;
 import tadgrafo.Vertices;
 
@@ -19,6 +20,7 @@ public class TrabalhoGrafo {
         GrafoND<String> grafoND = new GrafoND<String>();
         QuestaoQuatro q4 = new QuestaoQuatro();
         QuestaoCinco q5 = new QuestaoCinco();
+        QuestaoSeis q6 = new QuestaoSeis();
         ArrayList<VerticeND> vTS = new ArrayList();
 
         String path = "vertices.txt";
@@ -33,6 +35,7 @@ public class TrabalhoGrafo {
                 grafoND.addVertices(line);
                 q4.addVertices(line);
                 q5.addVertices(line);
+                q6.addVertices(line);
 
                 line = br.readLine();
             }
@@ -53,6 +56,7 @@ public class TrabalhoGrafo {
                 grafoND.addAresta(Double.parseDouble(vect[2]), vect[0], vect[1]);
                 q4.addAresta(Double.parseDouble(vect[2]), vect[0], vect[1]);
                 q5.addAresta(Double.parseDouble(vect[2]), vect[0], vect[1]);
+                q6.addAresta(Double.parseDouble(vect[2]), vect[0], vect[1]);
 
                 line = br.readLine();
             }
@@ -67,7 +71,7 @@ public class TrabalhoGrafo {
         System.out.println("\n\n--PRIMEIRA QUESTÃO B--------------");
         grafoND.buscaLargura(0);//visita começa pelo primeiro vertice;
         
-        System.out.println("\n\n--QUERTA QUESTÃO--------------");
+        System.out.println("\n\n--QUARTA QUESTÃO--------------");
         
       
       if(q4.nroCromatico(1)>2){
@@ -80,6 +84,12 @@ public class TrabalhoGrafo {
       
         System.out.println("\n\n--QUINTA QUESTÃO--------------");
         q5.menorCaminho();
+
+        System.out.println("\n\n--SEXTA QUESTÃO (ALGORITMO PRIM)--------------");
+        q6.geraMinimoPim(grafoND.getVertices().get(0));
+
+        System.out.println("\n\n--SEXTA QUESTÃO (ALGORITMO KRUSKAL)--------------");
+        q6.geraMinimoKruskal(grafoND.getVertices().get(0));
     }
 
 }

@@ -45,6 +45,10 @@ public class GrafoND<TIPO> {
         return vertice;
     }
 
+    public ArrayList<VerticeND<TIPO>> getVertices(){
+        return this.vertices;
+    }
+
     public void buscaLargura(int v) {
         ArrayList<VerticeND<TIPO>> marcados = new ArrayList<VerticeND<TIPO>>();
         ArrayList<VerticeND<TIPO>> fila = new ArrayList<VerticeND<TIPO>>();
