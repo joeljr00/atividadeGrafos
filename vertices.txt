@@ -1,4 +1,6 @@
+{INFOR VERTIC: PRIMEIRO VERTIC PARTIDA; SEGUNDO VERTIC CHEGADA}
 Argentina
+Venezuela
 Bolivia
 Brasil
 Chile
@@ -9,4 +11,3 @@ Paraguai
 Peru
 Suriname
 Uruguai
-Venezuela

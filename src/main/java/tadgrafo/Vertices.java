@@ -7,18 +7,16 @@ public class Vertices<TIPO> {
     private TIPO dado;
     private ArrayList<Arestas<TIPO>> arestaIN;
     private ArrayList<Arestas<TIPO>> arestaOUT;
-    private double distanciaMin;
+    private double  distanciaMin = Double.MAX_VALUE;
+    private Vertices<TIPO> vertProx;
     private int cor;
 
     public Vertices(TIPO valor) {
         this.dado = valor;
         this.arestaIN = new ArrayList<Arestas<TIPO>>();
         this.arestaOUT = new ArrayList<Arestas<TIPO>>();
-        this.distanciaMin = 0.0;
-    }
-
-    public Vertices() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+               
     }
 
     public TIPO getDado() {
@@ -69,5 +67,19 @@ public class Vertices<TIPO> {
     public void setCor(int cor) {
         this.cor = cor;
     }
+
+    public Vertices<TIPO> getVertProx() {
+        return vertProx;
+    }
+
+    public void setVertProx(Vertices<TIPO> vertProx) {
+        this.vertProx = vertProx;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertices = {" + dado + '}';
+    }
+    
 
 }

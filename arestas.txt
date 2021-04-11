@@ -1,3 +1,4 @@
+{INFOR ARESTA: VERTIC A; VERTIC B, PESO DA ARESTA}
 Argentina;Bolivia;10.0
 Argentina;Brasil;5.0
 Argentina;Chile;6.0

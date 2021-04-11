@@ -41,6 +41,11 @@ public class VerticeND<TIPO> {
     public void adcionarAresta(ArestasND<TIPO> arestas){
     this.arestas.add(arestas);
     }
+
+    @Override
+    public String toString() {
+        return "Vertice {" + dado + '}';
+    }
     
     
 }

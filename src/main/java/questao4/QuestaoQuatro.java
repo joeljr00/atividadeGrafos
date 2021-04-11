@@ -6,27 +6,26 @@ import grafonaodirecionado.GrafoND;
 import grafonaodirecionado.VerticeND;
 import java.util.ArrayList;
 import java.util.Collections;
-import tadgrafo.Cor;
 
 
 
 public class QuestaoQuatro<TIPO> extends GrafoND {
     
  
- ArrayList<VerticeND<TIPO>> coloridos = new ArrayList<VerticeND<TIPO>>();
- private ArrayList<VerticeND<TIPO>> vertices;
+ ArrayList<VerticeND> coloridos = new ArrayList();
+ private ArrayList<VerticeND> vertices;
  
-    public void nroCromatico(TIPO dado) {
+    public int nroCromatico(int v) {
         ArrayList<VerticeND<TIPO>> tVertices = new ArrayList();
         tVertices.addAll(tDsVertices());
         Cor cor = new Cor();
         ArrayList<Integer> cores = new ArrayList();
         cores.addAll(cor.todasCores());
         ArrayList<Integer> coraux = new ArrayList();
-        VerticeND<TIPO> atual = getVertices(dado);
+        VerticeND<TIPO> atual = tVertices.get(v);
         VerticeND<TIPO> prox = atual;
 
-        while (coloridos.size() != 12) {
+        while (coloridos.size() < tVertices.size()) {
             for (ArestasND ares : atual.getArestas()) {
 
                 if (coloridos.contains(ares.getVerticeB())) {
@@ -42,7 +41,7 @@ public class QuestaoQuatro<TIPO> extends GrafoND {
                 if (coloridos.contains(ares.getVerticeB()) && coloridos.contains(ares.getVerticeA())) {
                    for(int i=0;i<coloridos.size();i++){
                    if(!coloridos.contains(tVertices.get(i))){
-                       nroCromatico(tVertices.get(i).getDado());
+                       nroCromatico(i);
                    }
                    }
                  }
@@ -53,7 +52,7 @@ public class QuestaoQuatro<TIPO> extends GrafoND {
                 System.out.println(atual.getDado() + " Cor " + atual.getCor());
             } else {
                 Collections.sort(coraux);
-                for (int i = 0; i <= coraux.size() + 1; i++) {
+                for (int i = 0; i < coraux.size(); i++) {
                     if (!coraux.contains(cores.get(i))) {
                         atual.setCor(cores.get(i));
                         break;
@@ -66,9 +65,9 @@ public class QuestaoQuatro<TIPO> extends GrafoND {
                     coraux.clear();
                 }
             }
-            nroCromatico(prox.getDado());
+            nroCromatico(tVertices.indexOf(prox));
         }
-
+ return cores.size();
     }
     
 }

@@ -68,28 +68,26 @@ public class GrafoND<TIPO> {
     }
     ArrayList<VerticeND<TIPO>> visitados = new ArrayList<VerticeND<TIPO>>();
 
-    public void buscaProfundidade(TIPO dado) {
+    public ArrayList<VerticeND<TIPO>> buscaProfundidade(int v) {
 
-        VerticeND<TIPO> atual = getVertices(dado);
-        System.out.println(atual.getDado() + "Cor " + atual.getCor());
+        VerticeND<TIPO> atual = vertices.get(v);
 
         visitados.add(atual);
-        System.out.println("TAM: " + visitados.size());
+
         for (int i = 0; i < atual.getArestas().size(); i++) {
             VerticeND<TIPO> prox = atual.getArestas().get(i).getVerticeB();
             if (!visitados.contains(prox)) {
-                buscaProfundidade(prox.getDado());
+                buscaProfundidade(vertices.indexOf(prox));
             }
 
         }
         for (int j = 0; j < vertices.size(); j++) {
             if (!visitados.contains(vertices.get(j))) {
-                buscaProfundidade(vertices.get(j).getDado());
+                buscaProfundidade(j);
             }
         }
-        for (int k = 0; k < visitados.size(); k++) {
-            System.out.println("Vertice: " + visitados.get(k).getDado() + " Cor: " + visitados.get(k).getCor());
-        }
+       
+    return visitados;
     }
 
 }

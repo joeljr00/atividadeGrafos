@@ -1,16 +1,16 @@
-package tadgrafo;
+package questao4;
 
 import java.util.ArrayList;
 
 public class Cor {
 
-    private int C1 = 1;
-    private int C2 = 2;
-    private int C3 = 3;
-    private int C4 = 4;
-    private int C5 = 5;
-    private int C6 = 6;
-    private int C7 = 7;
+    private final int C1 = 1;
+    private final int C2 = 2;
+    private final int C3 = 3;
+    private final int C4 = 4;
+    private final int C5 = 5;
+    private final int C6 = 6;
+    private final int C7 = 7;
 
     public ArrayList<Integer> todasCores() {
         ArrayList<Integer> tCores = new ArrayList<Integer>();

@@ -1,55 +1,95 @@
-
 package questao5;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import tadgrafo.Arestas;
 import tadgrafo.TadGrafo;
 import tadgrafo.Vertices;
 
-
 public class QuestaoCinco<TIPO> extends TadGrafo {
-    
-    public void menorCaminho2(TIPO cidadeIn) {
-        double distancia = 0.0, distanciaM = 0.0;
-        Vertices<TIPO> cidadeSaida = this.getVertices(cidadeIn);
-        //  Vertices<TIPO> cidadeChegada = this.getVertices(cidadeIn);
-        ArrayList<Vertices<TIPO>> cidadesNaoVisitadas = new ArrayList<Vertices<TIPO>>();
-        ArrayList<Vertices<TIPO>> caminho = new ArrayList<Vertices<TIPO>>();
 
-        cidadeSaida.setDistanciaMin(distanciaM);
-        caminho.add(cidadeSaida);
-        cidadesNaoVisitadas.add(cidadeSaida);
+    public int menorCaminho() {
+        double distancia = 0.0;
+        int temSaida = 0;
+        ArrayList<Vertices<TIPO>> tVert = new ArrayList();
+        tVert=tDsVertices();
+        Vertices<TIPO> cidadeSaida = tVert.get(0);
+        Vertices<TIPO> cidadeChegada = tVert.get(1);
+        ArrayList<Vertices<TIPO>> cidadesAvisitar = new ArrayList();
+        ArrayList<Vertices<TIPO>> cidadesVisitadas = new ArrayList();
+        ArrayList<Vertices<TIPO>> caminho = new ArrayList();
+        
 
-        // cidadesNaoVisitadas.addAll(vertices);
-        Vertices<TIPO> aux = null;
-        while (!cidadesNaoVisitadas.isEmpty()) {
-            cidadeSaida = cidadesNaoVisitadas.get(0);
+        cidadeSaida.setDistanciaMin(distancia);
 
-            for (Arestas ares : cidadeSaida.getArestaOUT()) {
-                if (!caminho.contains(ares.getFim())) {
-                    cidadesNaoVisitadas.add(ares.getFim());
-                    caminho.add(ares.getFim());
-                }
+        cidadesAvisitar.add(cidadeSaida);
 
-                distancia = ares.getPeso();
-
-                if (distanciaM > 0.0 && distancia < distanciaM) {
-                    distanciaM = distancia;
-                    aux = ares.getFim();
-                } else if (0.0 <= distanciaM) {
-                    distanciaM = ares.getPeso();
-
-                    aux = ares.getFim();
-                }
-
+        if (tVert.get(0) == tVert.get(1)) {
+            System.out.println("Você já está em: " + tVert.get(0));
+            return 0;
+        }
+        for (Arestas ares : cidadeSaida.getArestaOUT()) {
+            if (ares.getFim() != cidadeSaida) {
+                temSaida = 1;
             }
-            aux.setDistanciaMin(distanciaM);
-
-            System.out.println(cidadeSaida.getDado() + " Dis: " + aux.getDistanciaMin() + " " + aux.getDado());
-
-            cidadesNaoVisitadas.remove(0);
         }
 
+        if (temSaida == 0) {
+            System.out.println("Dado o grafo orientado você não pode ir a: "
+                    + tVert.get(1) + " partindo de: " + tVert.get(0));
+            return 0;
+        }
+        temSaida = 0;
+        Vertices<TIPO> cidadeAnt = null;
+
+        while (!cidadesAvisitar.isEmpty()) {
+
+            cidadeSaida = cidadesAvisitar.get(0);
+            for (Arestas ares : cidadeSaida.getArestaOUT()) {
+                if (ares.getFim() != cidadeSaida) {
+                    temSaida = 1;
+                }
+            }
+            if (temSaida == 0) {
+                cidadesAvisitar.remove(cidadeSaida);
+                cidadesVisitadas.add(cidadeSaida);
+                cidadeSaida = cidadeAnt;
+                cidadesVisitadas.remove(cidadeAnt);
+
+            }
+            temSaida = 0;
+
+            for (Arestas ares : cidadeSaida.getArestaOUT()) {
+                if (!cidadesVisitadas.contains(ares.getFim())) {
+                    if (!cidadesAvisitar.contains(ares.getFim())) {
+                        cidadesAvisitar.add(ares.getFim());
+                    }
+                }
+                distancia = ares.getPeso() + cidadeSaida.getDistanciaMin();
+                
+                if (distancia < ares.getFim().getDistanciaMin()) {
+                    ares.getFim().setDistanciaMin(distancia);
+                    ares.getFim().setVertProx(cidadeSaida);
+                }
+            }
+
+            cidadesVisitadas.add(cidadeSaida);
+            //System.out.println(cidadeAnt + "  " + cidadeSaida);
+            cidadeAnt = cidadeSaida;
+            cidadesAvisitar.remove(cidadeSaida);
+
+        }
+        caminho.clear();
+        for (cidadeSaida = cidadeChegada; cidadeSaida != null; cidadeSaida = cidadeSaida.getVertProx()) {
+                        
+            caminho.add(cidadeSaida);
+        }
+        Collections.reverse(caminho);
+
+        System.out.println("Meenor caminho de " + tVert.get(0) + " a " + tVert.get(1) + "\n" + caminho.toString());
+        System.out.println("Distancia total: " + cidadeChegada.getDistanciaMin());
+
+        return 0;
     }
-    
+
 }
